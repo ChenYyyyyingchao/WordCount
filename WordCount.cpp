@@ -24,6 +24,7 @@ void wordnumber(char *Filename)
 {
 	int wordCount = 0;
 	char c;
+	int temp=0;
 	if((fp=fopen(Filename,"r"))==NULL)
 	{
 		printf("文件不能打开，请输入正确的文件名！");
@@ -32,20 +33,19 @@ void wordnumber(char *Filename)
 	while(!feof(fp))
 	{
 		c=fgetc(fp);
-		if(c>='a'&&c<='z' || c>='A'&&c<='Z' || c>='0'&&c<='9')
+		if((c>='a'&&c<='z') ||(c>='A'&&c<='Z'))
 		{
-			while (c>='a'&&c<='z' || c>='A'&&c<='Z' || c>='0'&&c<='9' || c=='_')
-			{
-				c = fgetc(fp);
-			}
-			wordCount++;
-			c = fgetc(fp);
+			temp=1;
 		}
-		c = fgetc(fp);
+		else if(temp==1) 
+		{
+			wordCount++;
+			temp=0;
+		}
 	}
 	fclose(fp);
 	printf("单词数：%d\n",wordCount);
-}		
+}
 //主函数			
 int main(int argc,char *argv[])
 {
